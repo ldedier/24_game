@@ -1,4 +1,4 @@
-#!/usr/local/bin/python
+#!/usr/local/bin/python3
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
@@ -13,6 +13,8 @@
 
 from Solver import Solver
 
+GOAL_NUMBER = 24;
+
 import sys
 
 try:
@@ -20,4 +22,4 @@ try:
 	res = solver.solve();
 	solver.printSolutions(res);
 except Exception as e:
-	print e;
+	print (e);

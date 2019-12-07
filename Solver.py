@@ -48,4 +48,4 @@ class Solver:
 
 	@staticmethod
 	def printSolutions(solutions):
-		print " = 24";
+		print(" = 24");

@@ -11,32 +11,31 @@
 # **************************************************************************** #
 
 from rpn import rpn
+from permutations import getPermutations, getPermutationsNoRepetitions, getParenthesisPermutations
 
-def computePermutations(computations, toCompute, depth, n):
-	if (depth == n):
-		computations.append(toCompute[:]);
-		return ;
-	potentialValues = set([i for i in range(n)])^(set(toCompute[:depth]));
-	for value in potentialValues:
-		toCompute[depth] = value;
-		computePermutations(computations, toCompute, depth + 1, n);
-
-def getPermutations(n):
-	permutations = [];
-	computePermutations(permutations, [None] * n, 0, n);
-	return permutations;
-
-def naiveF(a1, a2, a3, a4):
-	solutions = [];
+def addPermutationsSolutions(orderedOperands, operatorPermutations, parenthesisPermutations, solutions):
 	operators = ['+', '-', '/', '*'];
-	operands = [a1, a2, a3, a4];
-	permutations = getPermutations(4);
-	for perm in permutations:
-		print perm
-		#orderedOperands = operands[perm[i]], enumerate(operands[:]));
-#		print orderedOperands;
-	#	addPermutation( ,);
+	tokens = [];
+	for operatorPerm in operatorPermutations:
+		orderedOperators = list(map(lambda args : operators[operatorPerm[args[0]]], enumerate(range(3)))); #nb_operands - 1 ( = nb operators)
+		for parenthesisPerm in parenthesisPermutations:
+			tokens = generateTokens(orderedOperands, orderedPermutations, parenthesisPermutations);
+			try:
+				res = rnp_tokens(tokens);
+				if (rnp_tokens == 24):
+					print("OK!");
+			except Exception as e:
+				print(e);
 
 def F(a1, a2, a3, a4):
 	"""returns a list of combinations of operators/operands producing the result 24 """
-	return naiveF(a1, a2, a3, a4);
+	solutions = [];
+	operands = [a1, a2, a3, a4];
+	operatorPermutations = getPermutations(3, 4);
+	operandPermutations = getPermutationsNoRepetitions(4);
+	parenthesisPermutations = getParenthesisPermutations(4);
+	print(parenthesisPermutations);
+	for perm in operandPermutations:
+		orderedOperands = list(map(lambda args : operands[perm[args[0]]], enumerate(operands[:])));
+		addPermutationsSolutions(orderedOperands, operatorPermutations, parenthesisPermutations, solutions);
+	return solutions;

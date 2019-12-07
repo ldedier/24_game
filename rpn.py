@@ -25,11 +25,11 @@ def isOperator(token):
 
 def getPrecedence(token):
     if (token == '+' or token == '-'):
-		return 1;
+        return (1);
     elif (token == '*' or token == '/'):
-		return 2;
+        return 2;
     else:
-		raise Exception("token :" + token  + " undefined");
+        raise Exception("token :" + token  + " undefined");
 
 def shouldPopOperators(operatorStack, token):
     if len(operatorStack) == 0:
@@ -55,13 +55,13 @@ def computeRPNQueue(tokens):
         elif token == ')':
             operator = None;
             while (len(operatorStack) != 0):
-				operator = operatorStack.pop(0);
-				if (operator != '('):
-					queue.append(operator);
-				else:
-					break
+                operator = operatorStack.pop(0);
+                if (operator != '('):
+                    queue.append(operator);
+                else:
+                    break
             if operator != '(':
-				raise Exception("mismatched parenthesis");
+                raise Exception("mismatched parenthesis");
     while len(operatorStack):
         operator = operatorStack.pop(0);
         if (operator == ')' or operator == '('):
@@ -71,7 +71,7 @@ def computeRPNQueue(tokens):
 
 def getResult(leftOperand, rightOperand, token):
     if (token == '+'):
-		return leftOperand + rightOperand;
+        return leftOperand + rightOperand;
     elif (token == '-'):
         return leftOperand - rightOperand;
     elif (token == '*'):
