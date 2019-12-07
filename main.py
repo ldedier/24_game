@@ -1,3 +1,4 @@
+#!/usr/local/bin/python
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
@@ -18,6 +19,5 @@ try:
 	solver = Solver(sys.argv);
 	res = solver.solve();
 	solver.printSolutions(res);
-
 except Exception as e:
 	print e;

@@ -26,8 +26,8 @@ class Solver:
 		except:
 			raise Exception(param + " is not a valid integer parameter");
 		if res < Solver.lowerLimit or res > Solver.upperLimit:
-			raise Exception(str(param) + " is not a valid integer for this game,"\
-			" it shall be contained between " + str(Solver.lowerLimit) + " and " + str(Solver.upperLimit));
+			raise Exception(param + " is not a valid integer for this game,"\
+			" integers shall be contained between " + str(Solver.lowerLimit) + " and " + str(Solver.upperLimit));
 		return res;
 
 	@classmethod
