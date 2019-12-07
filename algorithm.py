@@ -16,17 +16,14 @@ def computePermutations(computations, toCompute, depth, n):
 	if (depth == n):
 		computations.append(toCompute[:]);
 		return ;
-	index = toCompute.index(-1);
-	potentialValues = set([i for i in range(n)])^(set(toCompute));
-	potentialValues.remove(-1);
+	potentialValues = set([i for i in range(n)])^(set(toCompute[:depth]));
 	for value in potentialValues:
-			toCompute[index] = value;
-			computePermutations(computations, toCompute, depth + 1, n);
-	toCompute[index] = -1;
+		toCompute[depth] = value;
+		computePermutations(computations, toCompute, depth + 1, n);
 
 def getPermutations(n):
 	permutations = [];
-	computePermutations(permutations, [-1 for i in range(n)], 0, n);
+	computePermutations(permutations, [None] * n, 0, n);
 	return permutations;
 
 def naiveF(a1, a2, a3, a4):
@@ -35,8 +32,9 @@ def naiveF(a1, a2, a3, a4):
 	operands = [a1, a2, a3, a4];
 	permutations = getPermutations(4);
 	for perm in permutations:
+		print perm
 		#orderedOperands = operands[perm[i]], enumerate(operands[:]));
-		print orderedOperands;
+#		print orderedOperands;
 	#	addPermutation( ,);
 
 def F(a1, a2, a3, a4):
