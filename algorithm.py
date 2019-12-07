@@ -13,6 +13,6 @@
 import sys
 
 def F(a1, a2, a3, a4):
-    """returns a list of combinations of operators/operands that produces the result 24 """
+    """returns a list of combinations of operators/operands producing the result 24 """
     exec("res = 4 + 5");
     print res;

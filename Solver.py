@@ -17,13 +17,17 @@ from algorithm import F
 class Solver:
 
 	upperLimit = 13;
-	lowerLimit = 0;
+	lowerLimit = 1;
 	
 	@staticmethod
 	def parseParam(param):
-		res = int(param);
+		try:
+			res = int(param);
+		except:
+			raise Exception(param + " is not a valid integer parameter");
 		if res < Solver.lowerLimit or res > Solver.upperLimit:
-			raise Exception(param + " is not a valid integer for this game");
+			raise Exception(str(param) + " is not a valid integer for this game,"\
+			" it shall be contained between " + str(Solver.lowerLimit) + " and " + str(Solver.upperLimit));
 		return res;
 
 	@classmethod
