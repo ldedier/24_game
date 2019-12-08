@@ -18,3 +18,6 @@ class Solution:
 
 	def __repr__(self):
 		return (" ".join(map(str, self.tokens)) + " = " + repr(int(self.result)));
+
+	def printTokens(self):
+		print (" ".join(map(str, self.tokens)));

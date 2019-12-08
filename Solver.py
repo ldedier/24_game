@@ -11,8 +11,7 @@
 # **************************************************************************** #
 
 import sys
-from algorithm import G
-from algorithm import F
+from algorithm import F, G
 
 class Solver:
 
@@ -32,15 +31,29 @@ class Solver:
 		return res;
 
 	@classmethod
+	def parseOptions(self, argv):
+		i = 1;
+		while (i < len(argv)):
+			if (argv[i] == "--"):
+				return (i + 1);
+			elif (argv[i] == "-q"):
+				self.quiet = True;
+			else:
+				return (i);
+			i = i + 1;
+		return (i);
+	
+	@classmethod
 	def __init__(self, argv):
 		self.progname = argv[0];
 		self.quiet = False;
-	
-		if (len(argv) < 2):
+		argv = argv[self.parseOptions(argv):];
+
+		if (len(argv) < 1):
 			raise Exception(self.getUsage());
-		elif (len(argv) > 6):
-			raise Exception("up to 5 operands can be taken (received %d)" % (len(argv) - 1));
-		params = argv[1:];
+		elif (len(argv) > 5):
+			raise Exception("up to 5 operands can be taken (received %d)" % (len(argv)));
+		params = argv[:];
 		self.operands = list(map(Solver.parseParam, params));
 
 	@classmethod
@@ -52,16 +65,21 @@ class Solver:
 
 	@classmethod
 	def getUsage(self):
-		return "usage: python " + self.progname + " operands..."
+		return "usage: python " + self.progname + " [-q] operands..."
 
-	@staticmethod
-	def printSolutions(solutions):
-		if (len(solutions) == 0):
-			print("No solutions were found !");
-		elif (len(solutions) == 1):
-			print(solutions[0]);
-		else:
-			print("Solutions:\n");
+	@classmethod
+	def printSolutions(self, solutions):
+		if (self.quiet):
 			for solution in solutions:
-				print(solution);
-			print("\nfound %d distincts solutions" % len(solutions));
+				solution.printTokens();
+		else:
+			if (len(solutions) == 0):
+				print("No solutions were found !");
+			elif (len(solutions) == 1):
+				print(solutions[0]);
+				print("\nfound a single solution")
+			else:
+				print("Solutions:\n");
+				for solution in solutions:
+					print(solution);
+				print("\nfound %d distincts solutions" % len(solutions));
