@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-PROGNAME="24_games.py"
+PROGNAME="24_game.py"
 
 NB_ITERS=5
 NB_MIN_TESTS=100
