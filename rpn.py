@@ -39,6 +39,7 @@ def shouldPopOperators(operatorStack, token):
         return operator != '(' and getPrecedence(operator) >= getPrecedence(token);
 
 def computeRPNQueue(tokens):
+    """compute the RPN queue given an expression lexed as a token list"""
     queue = [];
     operatorStack = [];
     while (len(tokens) > 0):
@@ -74,6 +75,7 @@ def getResult(leftOperand, rightOperand, token):
 	return operators[token].calculate(leftOperand, rightOperand);
 
 def calulateFromRPNQueue(queue):
+    """return the float result given a RPN queue as input"""
     operandStack = [];
     while (len(queue)):
         token = queue.pop(0);
