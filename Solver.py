@@ -50,6 +50,8 @@ class Solver:
 	def printSolutions(solutions):
 		if (len(solutions) == 0):
 			print("No solutions were found !");
+		elif (len(solutions) == 1):
+			print(" ".join(map(str, solutions[0])) + " = 24");
 		else:
 			print("Solutions:\n");
 			for solution in solutions:

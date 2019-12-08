@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-from rpn import rpnFromTokens
+from rpn import rpnFromTokensNoDoubles
 from permutations import getPermutations, getPermutationsNoRepetitions, getParenthesisPermutations
 
 def generateTokens(orderedOperands, orderedOperators, parenthesisPermutations):
@@ -36,15 +36,15 @@ def generateTokens(orderedOperands, orderedOperators, parenthesisPermutations):
 		i = i + 1;
 	return tokens;
 
-
-def addPermutationsSolutions(orderedOperands, operatorPermutations, parenthesisPermutations, solutions):
+def addPermutationsSolutions(orderedOperands, operatorPermutations,
+		parenthesisPermutations, processedRPN, solutions):
 	operators = ['+', '-', '/', '*'];
 	for operatorPerm in operatorPermutations:
 		orderedOperators = list(map(lambda args : operators[operatorPerm[args[0]]], enumerate(range(3)))); #nb_operands - 1 ( = nb operators)
 		for parenthesisPerm in parenthesisPermutations:
 			tokens = generateTokens(orderedOperands, orderedOperators, parenthesisPerm[:]);
 			try:
-				res = rpnFromTokens(tokens[:]);
+				res = rpnFromTokensNoDoubles(tokens[:], processedRPN);
 				if (res == 24.0):
 					solutions.append(tokens[:]);
 			except ZeroDivisionError as e:
@@ -52,15 +52,21 @@ def addPermutationsSolutions(orderedOperands, operatorPermutations, parenthesisP
 
 def F(a1, a2, a3, a4):
 	"""returns a list of combinations of operators/operands producing the result 24 """
+
 	solutions = [];
 	operands = [a1, a2, a3, a4];
+
 	operatorPermutations = getPermutations(3, 4);
 	operandPermutations = getPermutationsNoRepetitions(4);
 	parenthesisPermutations = getParenthesisPermutations(4);
+
 	processedOperandPermutations = {};
+	processedRPN = {};
+
 	for perm in operandPermutations:
 		orderedOperands = list(map(lambda args : operands[perm[args[0]]], enumerate(operands[:])));
 		if (not tuple(orderedOperands) in processedOperandPermutations):
-			addPermutationsSolutions(orderedOperands, operatorPermutations, parenthesisPermutations, solutions);
+			addPermutationsSolutions(orderedOperands, operatorPermutations,\
+				parenthesisPermutations, processedRPN, solutions);
 			processedOperandPermutations[tuple(orderedOperands)] = 1;
 	return solutions;

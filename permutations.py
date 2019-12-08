@@ -34,15 +34,15 @@ def intersectParenthesis(start, end, parenthesisPermutations):
 			return True;
 	return False;
 
-def computeParenthesisPermutations(permutations, toCompute, i, j, nbOperands, debug):
+def computeParenthesisPermutations(permutations, toCompute, i, j, nbOperands):
 	while (j < nbOperands):
 		if ((i, j) != (0, nbOperands - 1) and not intersectParenthesis(i, j, toCompute)):
 			toCompute.append((i, j));
-			permutations.append(toCompute[:]);
-			computeParenthesisPermutations(permutations, toCompute, i, j + 1, nbOperands, "A"); # here to fill (aN, aM), (aN, aM+1)
-			computeParenthesisPermutations(permutations, toCompute, j + 1, j + 2, nbOperands, "B"); # here to fill (aN, aM), (aM+1), (aM+2)
+			computeParenthesisPermutations(permutations, toCompute, j + 1, j + 2, nbOperands);
+			computeParenthesisPermutations(permutations, toCompute, i, j + 1, nbOperands);
 			if (i + 1 < nbOperands and j > i + 1):
-				computeParenthesisPermutations(permutations, toCompute, i + 1, j, nbOperands, "C"); # here to fill (aN, aM), (aN+1, aM)
+				computeParenthesisPermutations(permutations, toCompute, i + 1, j, nbOperands);
+			permutations.append(toCompute[:]);
 			toCompute.remove((i, j));
 		j = j + 1;
 
@@ -65,10 +65,10 @@ def getParenthesisPermutations(nbOperands):
 
 	nbOperands = 4;
 	permutations = [];
-	permutations.append([]); # no parenthesis
 	i = 0;
 	while (i < nbOperands):
 		toCompute = [];
-		computeParenthesisPermutations(permutations, toCompute, i, i + 1, nbOperands, "INIT");
+		computeParenthesisPermutations(permutations, toCompute, i, i + 1, nbOperands);
 		i = i + 1;
+	permutations.append([]); # no parenthesis
 	return permutations;

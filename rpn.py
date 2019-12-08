@@ -11,18 +11,25 @@
 # **************************************************************************** #
 
 import re;
+from operators.Addition import Addition;
+from operators.Division import Division;
+from operators.Multiplication import Multiplication;
+from operators.Substraction import Substraction;
+
+operators = {
+	"+": Addition(),
+	"*": Multiplication(),
+	"/": Division(),
+	"-": Substraction(),
+}
 
 def isOperator(token):
-    return (token == '+' or token == '*' or
-        token == '/' or token == '-');
+	global operators;
+	return token in operators;
 
 def getPrecedence(token):
-    if (token == '+' or token == '-'):
-        return (1);
-    elif (token == '*' or token == '/'):
-        return 2;
-    else:
-        raise Exception("token :" + token  + " undefined");
+	global operators;
+	return operators[token].precedence;
 
 def shouldPopOperators(operatorStack, token):
     if len(operatorStack) == 0:
@@ -63,16 +70,8 @@ def computeRPNQueue(tokens):
     return queue;
 
 def getResult(leftOperand, rightOperand, token):
-    if (token == '+'):
-        return leftOperand + rightOperand;
-    elif (token == '-'):
-        return leftOperand - rightOperand;
-    elif (token == '*'):
-        return leftOperand * rightOperand;
-    elif (token == '/'):
-        return leftOperand / rightOperand;
-    else:
-        return Exception(token + " : unknown operator");
+	global operators;
+	return operators[token].calculate(leftOperand, rightOperand);
 
 def calulateFromRPNQueue(queue):
     operandStack = [];
@@ -95,6 +94,15 @@ def calulateFromRPNQueue(queue):
 def rpnFromTokens(tokens):
     rpnQueue = computeRPNQueue(tokens);
     return calulateFromRPNQueue(rpnQueue);
+
+def rpnFromTokensNoDoubles(tokens, processedRPN):
+    rpnQueue = computeRPNQueue(tokens);
+    rpnTuple = tuple(rpnQueue);
+    if (not rpnTuple in processedRPN):
+        processedRPN[rpnTuple] = 1;
+        return calulateFromRPNQueue(rpnQueue);
+    else:
+        return None;
 
 def rpn(string):
     tokens = re.findall('[+-/*//()]|[0-9]+', string);
