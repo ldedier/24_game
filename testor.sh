@@ -1,7 +1,10 @@
 #!/bin/zsh
 
 NB_ITERS=5
+NB_MIN_TESTS=100
+
 MAX_ARGS=4
+
 GOAL=24
 
 green="\033[32m"
@@ -21,7 +24,7 @@ nbTests=0;
 passedTests=0;
 
 i=0
-while [ $i -le $NB_ITERS ];
+while [ $i -le $NB_ITERS ] || [ $nbTests -le $NB_MIN_TESTS ];
 do
 	array=(`randint 1 13` `randint 1 13` `randint 1 13` `randint 1 13`)
 	j=1
