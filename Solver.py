@@ -65,7 +65,8 @@ class Solver:
 
 	@classmethod
 	def getUsage(self):
-		return "usage: python " + self.progname + " [-q] operands..."
+		return "usage: python " + self.progname + " [-q] <operand1> <operand2> <...>"\
+		"\n-q: quiet mode"
 
 	@classmethod
 	def printSolutions(self, solutions):

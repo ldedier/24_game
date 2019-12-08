@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+PROGNAME="24_games.py"
+
 NB_ITERS=5
 NB_MIN_TESTS=100
 
@@ -30,7 +32,7 @@ do
 	j=1
 	while [ $j -le $MAX_ARGS ];
 	do
-		python3 main.py -q $array | while read line || [[ -n $line ]];
+		python3 $PROGNAME -q $array | while read line || [[ -n $line ]];
 		do
 			res=$(echo $(printf "%.2f" $(echo "${line}"| bc -l)) " == ${GOAL}" | bc -l)
 			if [ $res -eq 0 ];
