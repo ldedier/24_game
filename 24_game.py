@@ -15,8 +15,6 @@ from Solver import Solver
 
 import sys
 
-sys.path.append('~/Projects/algo/24_games/operators')
-
 try:
 	solver = Solver(sys.argv);
 	res = solver.solve();
