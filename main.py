@@ -21,5 +21,7 @@ try:
 	solver = Solver(sys.argv);
 	res = solver.solve();
 	solver.printSolutions(res);
+	exit(0);
 except Exception as e:
 	print (e);
+	exit(1);

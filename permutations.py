@@ -27,13 +27,23 @@ def computePermutations(permutations, toCompute, depth, n, r):
 		toCompute[depth] = i;
 		computePermutations(permutations, toCompute, depth + 1, n, r);
 
-def computeParenthesisPermutations(permutations, toCompute, i, nbOperands):
-	j = i + 1;
+def intersectParenthesis(start, end, parenthesisPermutations):
+	for perm in parenthesisPermutations:
+		if ((start != perm[0] and end != perm[1])) and\
+			((end > perm[1] and start <= perm[1]) or (end >= perm[0] and start < perm[1])):
+			return True;
+	return False;
+
+def computeParenthesisPermutations(permutations, toCompute, i, j, nbOperands, debug):
 	while (j < nbOperands):
-		toCompute.append((i, j));
-		permutations.append(toCompute[:]);
-		computeParenthesisPermutations(permutations, toCompute, i + j + 1, nbOperands);
-		toCompute.remove((i, j));
+		if ((i, j) != (0, nbOperands - 1) and not intersectParenthesis(i, j, toCompute)):
+			toCompute.append((i, j));
+			permutations.append(toCompute[:]);
+			computeParenthesisPermutations(permutations, toCompute, i, j + 1, nbOperands, "A"); # here to fill (aN, aM), (aN, aM+1)
+			computeParenthesisPermutations(permutations, toCompute, j + 1, j + 2, nbOperands, "B"); # here to fill (aN, aM), (aM+1), (aM+2)
+			if (i + 1 < nbOperands and j > i + 1):
+				computeParenthesisPermutations(permutations, toCompute, i + 1, j, nbOperands, "C"); # here to fill (aN, aM), (aN+1, aM)
+			toCompute.remove((i, j));
 		j = j + 1;
 
 def getPermutationsNoRepetitions(n):
@@ -53,12 +63,12 @@ def getParenthesisPermutations(nbOperands):
 	""" returns the list of parenthesis permutations in the format:
 	(first operand index, second operand index)"""
 
+	nbOperands = 4;
 	permutations = [];
 	permutations.append([]); # no parenthesis
 	i = 0;
 	while (i < nbOperands):
 		toCompute = [];
-		computeParenthesisPermutations(permutations, toCompute, i, nbOperands);
+		computeParenthesisPermutations(permutations, toCompute, i, i + 1, nbOperands, "INIT");
 		i = i + 1;
-	permutations.remove([(0, nbOperands - 1)]); # removing the all parenthesed expression
 	return permutations;

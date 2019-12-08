@@ -12,13 +12,6 @@
 
 import re;
 
-def isNumber(s):
-    try:
-        float(s);
-        return True;
-    except ValueError:
-        return False;
-
 def isOperator(token):
     return (token == '+' or token == '*' or
         token == '/' or token == '-');
@@ -43,7 +36,7 @@ def computeRPNQueue(tokens):
     operatorStack = [];
     while (len(tokens) > 0):
         token = tokens.pop(0);
-        if isNumber(token):
+        if isinstance(token, int):
             queue.append(token);
         elif isOperator(token):
             while shouldPopOperators(operatorStack, token):
@@ -85,21 +78,24 @@ def calulateFromRPNQueue(queue):
     operandStack = [];
     while (len(queue)):
         token = queue.pop(0);
-        if (isNumber(token)):
+        if (isinstance(token, int)):
             operandStack.insert(0, token);
         else:
             if (len(operandStack) < 2):
                 raise Exception("syntax error");
             else:
-                leftOperand = float(operandStack.pop(0));
                 rightOperand = float(operandStack.pop(0));
+                leftOperand = float(operandStack.pop(0));
                 ret = getResult(leftOperand, rightOperand, token);
                 operandStack.insert(0, ret);
     if (len(operandStack) != 1):
         raise Exception("syntax error");
     return operandStack.pop(0);
 
-def rpn(string):
-    tokens = re.findall('[+-/*//()]|[0-9]+', string);
+def rpnFromTokens(tokens):
     rpnQueue = computeRPNQueue(tokens);
     return calulateFromRPNQueue(rpnQueue);
+
+def rpn(string):
+    tokens = re.findall('[+-/*//()]|[0-9]+', string);
+    return rpnFromTokens(tokens);

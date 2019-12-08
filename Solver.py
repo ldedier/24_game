@@ -48,4 +48,10 @@ class Solver:
 
 	@staticmethod
 	def printSolutions(solutions):
-		print(" = 24");
+		if (len(solutions) == 0):
+			print("No solutions were found !");
+		else:
+			print("Solutions:\n");
+			for solution in solutions:
+				print(" ".join(map(str, solution)) + " = 24");
+			print("\nfound %d distincts solutions" % len(solutions));
