@@ -78,7 +78,6 @@ class Solver:
 				print("No solutions were found !");
 			elif (len(solutions) == 1):
 				print(solutions[0]);
-				print("\nfound a single solution")
 			else:
 				print("Solutions:\n");
 				for solution in solutions:
