@@ -1,25 +1,20 @@
-#!/usr/local/bin/python3
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    main.py                                            :+:      :+:    :+:    #
+#    Solution.py                                        :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/12/07 05:49:35 by ldedier           #+#    #+#              #
-#    Updated: 2019/12/07 05:49:35 by ldedier          ###   ########.fr        #
+#    Created: 2019/12/08 11:23:35 by ldedier           #+#    #+#              #
+#    Updated: 2019/12/08 11:23:35 by ldedier          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-from Solver import Solver
+class Solution:
 
-import sys
+	def __init__(self, tokens, result):
+		self.tokens = tokens;
+		self.result = result;
 
-try:
-	solver = Solver(sys.argv);
-	res = solver.solve();
-	solver.printSolutions(res);
-	exit(0);
-except Exception as e:
-	print (e);
-	exit(1);
+	def __repr__(self):
+		return (" ".join(map(str, self.tokens)) + " = " + repr(int(self.result)));

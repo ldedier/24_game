@@ -63,7 +63,6 @@ def getParenthesisPermutations(nbOperands):
 	""" returns the list of parenthesis permutations in the format:
 	(first operand index, second operand index)"""
 
-	nbOperands = 4;
 	permutations = [];
 	i = 0;
 	while (i < nbOperands):

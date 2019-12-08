@@ -11,13 +11,14 @@
 # **************************************************************************** #
 
 import sys
-
+from algorithm import G
 from algorithm import F
 
 class Solver:
 
 	upperLimit = 13;
 	lowerLimit = 1;
+	goal = 24;
 	
 	@staticmethod
 	def parseParam(param):
@@ -33,27 +34,34 @@ class Solver:
 	@classmethod
 	def __init__(self, argv):
 		self.progname = argv[0];
-		if (len(argv) != 5):
+		self.quiet = False;
+	
+		if (len(argv) < 2):
 			raise Exception(self.getUsage());
+		elif (len(argv) > 6):
+			raise Exception("up to 5 operands can be taken (received %d)" % (len(argv) - 1));
 		params = argv[1:];
-		self.a1, self.a2, self.a3, self.a4 = tuple(map(Solver.parseParam, params));
+		self.operands = list(map(Solver.parseParam, params));
 
 	@classmethod
 	def solve(self):
-		return F(self.a1, self.a2, self.a3, self.a4);
+		if (len(self.operands) == 4):
+			return F(self.operands[0], self.operands[1], self.operands[2], self.operands[3]);
+		else:
+			return G(self.operands, Solver.goal);
 
 	@classmethod
 	def getUsage(self):
-		return "usage: python " + self.progname + " a1 a2 a3 a4"
+		return "usage: python " + self.progname + " operands..."
 
 	@staticmethod
 	def printSolutions(solutions):
 		if (len(solutions) == 0):
 			print("No solutions were found !");
 		elif (len(solutions) == 1):
-			print(" ".join(map(str, solutions[0])) + " = 24");
+			print(solutions[0]);
 		else:
 			print("Solutions:\n");
 			for solution in solutions:
-				print(" ".join(map(str, solution)) + " = 24");
+				print(solution);
 			print("\nfound %d distincts solutions" % len(solutions));
