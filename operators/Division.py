@@ -14,6 +14,5 @@ class Division:
 	def __init__(self):
 		self.precedence = 2;
 	
-	@classmethod
 	def calculate(self, op1, op2):
 		return op1 / op2;

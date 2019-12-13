@@ -19,8 +19,8 @@ class Solver:
 	lowerLimit = 1;
 	goal = 24;
 	
-	@staticmethod
-	def parseParam(param):
+	@classmethod
+	def parseParam(Solver, param):
 		try:
 			res = int(param);
 		except:
@@ -30,7 +30,6 @@ class Solver:
 			" integers shall be contained between " + str(Solver.lowerLimit) + " and " + str(Solver.upperLimit));
 		return res;
 
-	@classmethod
 	def parseOptions(self, argv):
 		i = 1;
 		while (i < len(argv)):
@@ -43,7 +42,6 @@ class Solver:
 			i = i + 1;
 		return (i);
 	
-	@classmethod
 	def __init__(self, argv):
 		self.progname = argv[0];
 		self.quiet = False;
@@ -56,19 +54,16 @@ class Solver:
 		params = argv[:];
 		self.operands = list(map(Solver.parseParam, params));
 
-	@classmethod
 	def solve(self):
 		if (len(self.operands) == 4):
 			return F(self.operands[0], self.operands[1], self.operands[2], self.operands[3]);
 		else:
 			return G(self.operands, Solver.goal);
 
-	@classmethod
 	def getUsage(self):
 		return "usage: python3 " + self.progname + " [-q] <operand1> <operand2> <...>"\
 		"\n-q: quiet mode"
 
-	@classmethod
 	def printSolutions(self, solutions):
 		if (self.quiet):
 			for solution in solutions:
@@ -82,4 +77,4 @@ class Solver:
 				print("Solutions:\n");
 				for solution in solutions:
 					print(solution);
-				print("\nfound %d distincts solutions" % len(solutions));
+				print("\nfound %d distinct solutions" % len(solutions));

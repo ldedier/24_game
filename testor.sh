@@ -38,7 +38,6 @@ do
 			if [ $res -eq 0 ];
 			then
 				echo "${red}Error !${eoc}";
-				exit 1;
 			else
 				echo "${green}$line = ${GOAL} OK !${eoc}";
 				passedTests=$(($passedTests + 1))
