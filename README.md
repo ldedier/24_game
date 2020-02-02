@@ -1,6 +1,8 @@
 # 24_game
 24 game solver
 
+![oops something went wrong, try to check on https://raw.githubusercontent.com/ldedier/24_game/master/resources/example.gif](https://raw.githubusercontent.com/ldedier/24_game/master/resources/example.gif)
+
 ## Summary
 
 The 24 Game is an arithmetical card game in which the objective is to find a way to manipulate four integers so that the end result is 24. For example, for the card with the numbers 4, 7, 8, 8, a possible solution is (7 - (8 ÷ 8)) ✕ 4 = 24.
